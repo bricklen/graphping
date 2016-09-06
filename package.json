@@ -1,0 +1,25 @@
+{
+  "name": "graphping",
+  "version": "1.2.0",
+  "description": "Graph the output of the ping command, every second.",
+  "main": "graphping.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ping",
+    "cli",
+    "graph",
+    "blessed",
+    "blessed-contrib"
+  ],
+  "author": "BAnderson",
+  "license": "ISC",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^3.5.5",
+    "child_process": "^1.0.2",
+    "fibers": "^1.0.14",
+    "yargs": "^5.0.0"
+  }
+}
