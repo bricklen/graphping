@@ -14,7 +14,7 @@
     "blessed-contrib"
   ],
   "author": "BAnderson",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "blessed": "^0.1.81",
     "blessed-contrib": "^3.5.5",
