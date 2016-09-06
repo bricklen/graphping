@@ -1,6 +1,6 @@
 {
   "name": "graphping",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Graph the output of the ping command, every second.",
   "main": "graphping.js",
   "scripts": {
