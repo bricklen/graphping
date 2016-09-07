@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 var child = require('child_process');
+var os = require('os');
+var platform = os.platform();
 var Fiber = require('fibers');
 var blessed = require('blessed');
 var contrib = require('blessed-contrib');
@@ -19,6 +21,7 @@ var max_ping_time = '';
 var max_ping_str = '';
 var max_y = 1500;       // In milliseconds, greater values will not be graphed.
 var err_ping = -100;    // Chose -100 so that it was clearly visible on the graph.
+var command;
 
 if ( typeof argv._[0] !== 'undefined') {
     if ((argv._[0]).length > 0 ) {
@@ -29,6 +32,20 @@ if (typeof argv.y !== 'undefined') {
     if (argv.y > 0) {
         max_y = argv.y;
     }
+}
+
+// Have only tested on Linux and OSX, the rest come from the man pages.
+if (platform === 'darwin' || platform === 'freebsd') {
+    command = 'ping -n -c1 -t1 ' + url_to_ping + ' | grep -Eo "time=[0-9.]+"';
+} else if (platform === 'linux') {
+    command = 'ping -n -c1 -i1 -W1 ' + url_to_ping + ' | grep -Eo "time=[0-9.]+"';
+} else if (platform === 'openbsd') {
+    command = 'ping -n -c1 -i1 ' + url_to_ping + ' | grep -Eo "time=[0-9.]+"';
+} else if (platform === 'win32') {
+    command = 'PING -n 1 -w 1000 ' + url_to_ping + ' | FIND "TTL="';
+} else {
+    // abort
+    return process.exit(0);
 }
 
 var line = contrib.line({
@@ -79,7 +96,6 @@ function sleep(ms) {
 
 var doPing = function() {
     var re = /time=[0-9]+/;
-    var command = 'ping -n -c 1 ' + url_to_ping + ' | grep -Eo "time=[0-9.]+"';
     var res;
     try {
         res = child.execSync(command);
