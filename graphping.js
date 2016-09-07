@@ -79,7 +79,7 @@ function sleep(ms) {
 
 var doPing = function() {
     var re = /time=[0-9]+/;
-    var command = 'ping -n -c 1 -t 1 ' + url_to_ping + ' | grep -Eo "time=[0-9.]+"';
+    var command = 'ping -n -c 1 ' + url_to_ping + ' | grep -Eo "time=[0-9.]+"';
     var res;
     try {
         res = child.execSync(command);
